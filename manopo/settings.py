@@ -27,7 +27,7 @@ SECRET_KEY = 'h^$yes*=cxo#as&9lr7-jirhm(97_cl79*83$1mq+1d-c6s09e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['manopo.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
