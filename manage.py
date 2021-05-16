@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+# web: gunicorn manopo.wsgi --log-file -
 
 def main():
     """Run administrative tasks."""
