@@ -1,0 +1,1 @@
+web: gunicorn manopo.wsgi --log-file -
