@@ -1,1 +1,1 @@
-web: gunicorn manopo.wsgi
+web: gunicorn manopo.wsgi --log-file -
