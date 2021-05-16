@@ -1,0 +1,111 @@
+
+
+{% load static %}
+{% static "images" as BaseUrl %}
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>MANOPO</title>
+  <link rel="icon" href="{% static 'images/Earth2.jpg' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/logout.css' %}">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+  <!-- partial:index.partial.html -->
+  <!DOCTYPE html>
+  
+  <html lang="en">
+      <head>
+          
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+          <title>Document</title>
+          
+      </head>
+      <body>
+          {% block content %}
+          <div class="navigation">
+  
+            <a class="button" href="../../../logout">
+              <img src="{% static 'images/Earth2.jpg' %}" style="width: 25px;border-radius: 75px;float: left;">
+          
+          <div class="logout">LOGOUT</div>
+        
+            </a>
+          
+        </div>
+          <div class="container">
+              <h1>{{names}}</h1>
+              <div id="searchWrapper">
+                  <input
+                      type="text"
+                      name="searchBar"
+                      id="searchBar"
+                      placeholder="search for a character"
+                  />
+              </div>
+  
+              <ul id="charactersList"></ul>
+              
+          </div>
+          {% endblock content %}
+  {% block scripts %}
+  <script>
+      const charactersList = document.getElementById('charactersList');
+      const searchBar = document.getElementById('searchBar');
+      let hpCharacters = [];
+      
+      searchBar.addEventListener('keyup', (e) => {
+          const searchString = e.target.value.toLowerCase();
+      
+          const filteredCharacters = hpCharacters.filter((character) => {
+              return (
+                  character.title.toLowerCase().includes(searchString) ||
+                  character.docno.toLowerCase().includes(searchString)
+              );
+          });
+          displayCharacters(filteredCharacters);
+      });
+      
+      const loadCharacters = async () => {
+          try {
+      
+              const res = JSON.parse("{{data_docs|escapejs}}");
+              hpCharacters = res;
+              displayCharacters(hpCharacters);
+          } catch (err) {
+              console.error(err);
+          }
+      };
+      
+      const displayCharacters = (characters) => {
+          const htmlString = characters
+              .map((character) => {
+                  return `
+                  <li class="character">
+                      <h2>${character.doctype}</h2>
+                      <p>No: ${character.docno}</p>
+                      <img src="/media/${character.image}"></img>
+
+                  </li>
+              `;
+              })
+              .join('');
+          charactersList.innerHTML = htmlString;
+      };
+      
+      loadCharacters();
+  
+  </script>
+  {% endblock scripts %}
+  
+  
+      </body>
+  </html>
+  
+  
